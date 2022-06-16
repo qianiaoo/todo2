@@ -2,6 +2,8 @@
 const { createProxyMiddleware } = require('http-proxy-middleware')
 
 module.exports = (req, res) => {
+    console.log(req)
+
     let target = 'https://4w2cn9zhuf.execute-api.ap-northeast-3.amazonaws.com/api/'
 
     // 代理目标地址
