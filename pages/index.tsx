@@ -21,11 +21,8 @@ interface IBTodoProps {
 
 interface Todo {
     title: string,
-    isOver: boolean
+    is_over: boolean
 }
-
-
-
 
 
 interface IBSetTodos {
@@ -33,18 +30,21 @@ interface IBSetTodos {
 }
 
 
-
-
-
-
 // const Home = ({todos}: IBTodoProps) => {
 const Home = () => {
 
     const addTodo = (title: string) => {
-        axios.post('http://localhost:8888/a', {
-            title: title,
+        axios.post('/api/todos', {
+            operation: "add",
+            item: {
+                "_id": Math.random().toString(),
+                "title": title,
+                "is_over": false
+            }
+
         })
             .then(function (response) {
+                console.log(response)
                 setTodos(response.data)
                 return response.data;
 
@@ -53,14 +53,7 @@ const Home = () => {
                 return error;
             });
     }
-
-    const fetchData = async () => {
-        const result = await axios(
-            'http://localhost:8888/get',
-        );
-
-        setTodos(result.data);
-    }; const handleKeyUp = async (event: React.KeyboardEvent<HTMLInputElement>) => {
+    const handleKeyUp = async (event: React.KeyboardEvent<HTMLInputElement>) => {
         const input: HTMLInputElement = event.currentTarget
         // if (event)
         if (event.key === 'Enter') {
@@ -74,14 +67,23 @@ const Home = () => {
         // checkBox.checked = checkBox.checked
         // checkBox.click()
         const data = JSON.stringify({
-            title: checkBox.value
+            operation: "update",
+            item: {
+                _id: checkBox.id,
+                title: checkBox.value,
+                is_over: checkBox.checked
+            }
         })
-        console.log(data)
+        console.log("click", data)
 
-        axios.post('http://localhost:8888/u', {
-            title: checkBox.value,
-            isOver: checkBox.checked
-        })
+        // const data = {
+        //     operation: "update",
+        //     _id: checkBox.id,
+        //     title: checkBox.value,
+        //     is_over: checkBox.checked
+        // };
+        console.log(data)
+        axios.post('/api/todos', data)
             .then(function (response) {
                 console.log('click end', response.data)
                 setTodos(response.data)
@@ -96,13 +98,19 @@ const Home = () => {
 
     const [todos, setTodos] = useState([])
     useEffect(() => {
-
         const fetchData = async () => {
-            const result = await axios(
-                'http://localhost:8888/get',
-            );
+            axios.post('/api/todos', {
+                "operation": "get"
+            })
+                .then(function (response) {
+                    setTodos(response.data)
+                    return response.data;
 
-            setTodos(result.data);
+                })
+                .catch(function (error) {
+                    return error;
+                });
+
         };
         fetchData();
     }, []);
@@ -113,18 +121,18 @@ const Home = () => {
                 <div className="max-w-md w-full space-y-8">
 
                     <div className="rounded-md shadow-sm -space-y-px">
-                        {todos.map(({title, isOver}) => !isOver?
+                        {todos.map(({id, title, is_over}) => !is_over ?
                             (
                                 <div key={title + "1"} className="block w-full px-3 py-2 border rounded-t-md">
 
                                     <p>
-                                        <input type="checkbox"  onClick={handleClick}
+                                        <input type="checkbox" onClick={handleClick}
                                                className="border-gray-300 rounded "
-                                               id="cbox1" value={title}/>
-                                        <label className={"ml-3"} htmlFor="cbox1">{title}</label>
+                                               id={id} value={title}/>
+                                        <label className={"ml-3"} htmlFor={id}>{title}</label>
                                     </p>
                                 </div>
-                            ): (
+                            ) : (
                                 ''
                             )
                         )}
