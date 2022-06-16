@@ -2,7 +2,7 @@
 const { createProxyMiddleware } = require('http-proxy-middleware')
 
 module.exports = (req, res) => {
-    console.log(req)
+    console.log("aaaaaaaaaaaaaa")
 
     let target = 'https://4w2cn9zhuf.execute-api.ap-northeast-3.amazonaws.com/api/'
 
