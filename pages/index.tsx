@@ -99,7 +99,7 @@ const Home = () => {
     const [todos, setTodos] = useState([])
     useEffect(() => {
         const fetchData = async () => {
-            axios.post('https://4w2cn9zhuf.execute-api.ap-northeast-3.amazonaws.com/api/todos', {
+            axios.post('/api/todos', {
                 "operation": "get"
             })
                 .then(function (response) {
