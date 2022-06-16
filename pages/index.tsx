@@ -34,7 +34,7 @@ interface IBSetTodos {
 const Home = () => {
 
     const addTodo = (title: string) => {
-        axios.post('/backend/api/todos', {
+        axios.post('/api/todos', {
             operation: "add",
             item: {
                 "_id": Math.random().toString(),
@@ -83,7 +83,7 @@ const Home = () => {
         //     is_over: checkBox.checked
         // };
         console.log(data)
-        axios.post('/backend/api/todos', data)
+        axios.post('/api/todos', data)
             .then(function (response) {
                 console.log('click end', response.data)
                 setTodos(response.data)
@@ -99,7 +99,7 @@ const Home = () => {
     const [todos, setTodos] = useState([])
     useEffect(() => {
         const fetchData = async () => {
-            axios.post('/backend/api/todos', {
+            axios.post('/api/todos', {
                 "operation": "get"
             })
                 .then(function (response) {
