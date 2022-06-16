@@ -2,7 +2,7 @@
 const { createProxyMiddleware } = require('http-proxy-middleware')
 
 module.exports = (req, res) => {
-    let target = ''
+    let target = 'https://4w2cn9zhuf.execute-api.ap-northeast-3.amazonaws.com/api/'
 
     // 代理目标地址
     // xxxxx 替换为你跨域请求的服务器 如： http://baidu.com
