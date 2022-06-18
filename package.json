@@ -4,13 +4,11 @@
 
   "scripts": {
 
-    "dev": "node server.js",
-
+    "dev": "next dev",
     "build": "next build",
 
     "start": "next start",
 
-    "dev:node-middleware": "node server.js"
 
   },
 
