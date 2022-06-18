@@ -5,9 +5,11 @@
   "scripts": {
 
     "dev": "next dev",
+
     "build": "next build",
 
-    "start": "next start"
+    "start": "vercel dev"
+
 
   },
 
@@ -16,6 +18,8 @@
     "axios": "^0.27.2",
 
     "base-64": "^1.0.0",
+
+    "cors": "^2.8.5",
 
     "express": "^4.18.1",
 

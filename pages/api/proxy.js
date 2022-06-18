@@ -10,6 +10,7 @@ module.exports = (req, res) => {
         // 这里填目标地址
         target = 'https://4w2cn9zhuf.execute-api.ap-northeast-3.amazonaws.com/api'
     }
+    console.log(target);
     // 创建代理对象并转发请求
     createProxyMiddleware({
         target,
