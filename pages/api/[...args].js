@@ -1,9 +1,9 @@
 
 import { createProxyMiddleware } from 'http-proxy-middleware';
-
-console.log("asdasd", process.env.FIREBASE_API_DOMAIN);
+const target = "https://4w2cn9zhuf.execute-api.ap-northeast-3.amazonaws.com/api"
+console.log("asdasd", target);
 export default createProxyMiddleware({
-    target: process.env.FIREBASE_API_DOMAIN,
+    target: target,
     changeOrigin: true,
     pathRewrite: {
         '^/api': '/',
