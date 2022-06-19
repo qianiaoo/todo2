@@ -97,6 +97,7 @@ const Home = () => {
 
 
     const [todos, setTodos] = useState([])
+    const [isAll, setIsAll] = useState(false);
     useEffect(() => {
         const fetchData = async () => {
             axios.post('/api/todos', {
@@ -116,18 +117,28 @@ const Home = () => {
     }, []);
     return (
 
-        <>
-            <div className="min-h-full flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
-                <div className="max-w-md w-full space-y-8">
+        <div className="">
+
+            <div className="min-h-full flex items-center justify-center flex-col flex-wrap py-12 px-4 sm:px-6 lg:px-8">
+
+
+                <button className="rounded bg-gray-200 py-2 my-4 w-1/2" onClick={()=>{
+                    setIsAll(!isAll)
+                }}>
+                    {!isAll? "全部表示":"未完成だけ表示"}
+                </button>
+
+
+                <div className="max-w-md basis-1 w-full space-y-8">
 
                     <div className="rounded-md shadow-sm -space-y-px">
-                        {todos.map(({id, title, is_over}) => !is_over ?
+                        {todos.map(({id, title, is_over}) => (!is_over || isAll) ?
                             (
                                 <div key={title + "1"} className="block w-full px-3 py-2 border rounded-t-md">
 
                                     <p>
                                         <input type="checkbox" onClick={handleClick}
-                                               className="border-gray-300 rounded "
+                                               className="border-gray-300 rounded " checked={is_over}
                                                id={id} value={title}/>
                                         <label className={"ml-3"} htmlFor={id}>{title}</label>
                                     </p>
@@ -151,7 +162,7 @@ const Home = () => {
                     </div>
                 </div>
             </div>
-        </>
+        </div>
 
     )
 }
